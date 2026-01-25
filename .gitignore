@@ -1,0 +1,16 @@
+# Node
+node_modules/
+
+# Environment
+.env
+
+# Frontend
+Frontend/node_modules/
+
+# Backend
+Backend/node_modules/
+Backend/.env
+
+# IDE
+.vscode/
+.idea/
