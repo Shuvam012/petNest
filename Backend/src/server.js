@@ -1,14 +1,18 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import connectDB  from './config/db.js';
+// import authRoutes from '../routes/authRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 
-import Test from './models/test.js';
 
 
 dotenv.config();
 connectDB();
 
 const app = express();
+app.use(express.json());
+app.use(cookieParser());
 
 const PORT = process.env.PORT 
 
@@ -16,10 +20,11 @@ app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-app.get("/test-db", async (req, res) => {
-  const test = await Test.create({ name: "PetNest DB Test" });
-  res.json(test);
-});
+app.use('/api/auth', authRoutes);
+
+
+
+
 
 
 app.listen(PORT, () => {    
