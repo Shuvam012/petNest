@@ -2,8 +2,12 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import connectDB  from './config/db.js';
-// import authRoutes from '../routes/authRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import adminProductRoutes from './routes/adminProductRoutes.js';
+import productRoutes from './routes/productRoutes.js';
+import cartRoutes from './routes/cartRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 
 
@@ -12,6 +16,7 @@ connectDB();
 
 const app = express();
 app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const PORT = process.env.PORT 
@@ -21,6 +26,11 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);  //admin routes
+app.use("/api/admin", adminProductRoutes); //admin product routes
+app.use("/api/products", productRoutes); //product routes
+app.use("/api/cart", cartRoutes); //cart routes
+app.use("/api/orders", orderRoutes); //order routes
 
 
 
