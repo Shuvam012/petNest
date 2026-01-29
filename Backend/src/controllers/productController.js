@@ -8,6 +8,9 @@ import Product from "../models/Product.js";
  */
 
 
+
+
+
 const createProduct = async (req, res) => {
     try {
         const {
@@ -17,7 +20,6 @@ const createProduct = async (req, res) => {
             stock,
             category,
             petType,
-            image
         } = req.body;
 
         if (
@@ -26,11 +28,15 @@ const createProduct = async (req, res) => {
             price === undefined ||
             stock === undefined ||
             !category ||
-            !petType ||
-            !image
+            !petType
         ) {
             return res.status(400).json({ message: "All fields are required" });
         }
+
+        if (!req.file) {
+            return res.status(400).json({ message: "Product image is required" });
+        }
+
         const product = await Product.create({
             name,
             description,
@@ -38,18 +44,22 @@ const createProduct = async (req, res) => {
             stock,
             category,
             petType,
-            image,
+            image: req.file.path,  // cloudinary url
             createdBy: req.user.id, // admin id form token
-        })
+        });
+
         res.status(201).json({
-            message: "Product created successfully", product
+            message: "Product created successfully",
+            product,
         });
     } catch (error) {
         res.status(500).json({
-            message: "Something went wrong" + error.message
+            message: "Something went wrong",
+            error: error.message,
         });
     }
-}
+};
+
 
 
 /**

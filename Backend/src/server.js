@@ -19,7 +19,7 @@ app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const PORT = process.env.PORT 
+const PORT = process.env.PORT || 5000
 
 app.get('/', (req, res) => {
   res.send('API is running...');
@@ -31,6 +31,8 @@ app.use("/api/admin", adminProductRoutes); //admin product routes
 app.use("/api/products", productRoutes); //product routes
 app.use("/api/cart", cartRoutes); //cart routes
 app.use("/api/orders", orderRoutes); //order routes
+
+// app.use("/api/admin",adminRoutes)
 
 
 
