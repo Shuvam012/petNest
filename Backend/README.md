@@ -5,33 +5,33 @@
 🚀 Features
 🔐 Authentication & Authorization
 
-  User Signup / Login / Logout
-  
-  JWT authentication using HTTP-only cookies
-  
-  Role-based access (user, admin)
-  
-  Secure admin-only routes
+    User Signup / Login / Logout
+    
+    JWT authentication using HTTP-only cookies
+    
+    Role-based access (user, admin)
+    
+    Secure admin-only routes
 
 🛍️ Product Management
 
-  Admin CRUD operations for products
-  
-  Products categorized by:
-  
-  Pet type (Dog, Cat, etc.)
-  
-  Category (Food, Medicine, Accessories, Clothes)
-  
-  Cloudinary image upload
-  
-  🛒 Cart System
-  
-  Add / remove products from cart
-  
-  Quantity update
-  
-  User-specific cart
+    Admin CRUD operations for products
+    
+    Products categorized by:
+    
+    Pet type (Dog, Cat, etc.)
+    
+    Category (Food, Medicine, Accessories, Clothes)
+    
+    Cloudinary image upload
+    
+    🛒 Cart System
+    
+    Add / remove products from cart
+    
+    Quantity update
+    
+    User-specific cart
 
 📦 Orders
 
@@ -79,40 +79,7 @@ Order status management:
     
     Cookie-parser
 
-📁 Project Structure
-Backend/
-│── src/
-│   ├── config/
-│   │   ├── db.js
-│   │   └── cloudinary.js
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── productController.js
-│   │   ├── cartController.js
-│   │   ├── orderController.js
-│   │   └── adminController.js
-│   ├── middleware/
-│   │   ├── authMiddleware.js
-│   │   ├── adminMiddleware.js
-│   │   └── uploadMiddleware.js
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Product.js
-│   │   ├── Cart.js
-│   │   └── Order.js
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── productRoutes.js
-│   │   ├── adminProductRoutes.js
-│   │   ├── cartRoutes.js
-│   │   ├── orderRoutes.js
-│   │   └── adminRoutes.js
-│   ├── utils/
-│   │   └── createAdmin.js
-│   └── server.js
-│── .env
-│── .gitignore
-│── package.json
+
 
 🔑 Environment Variables
 
@@ -138,32 +105,38 @@ Server will run at:
 📮 API Endpoints
 
 Auth
-    POST   /api/auth/signup
-    POST   /api/auth/login
-    POST   /api/auth/logout
+
+      POST   /api/auth/signup
+      POST   /api/auth/login
+      POST   /api/auth/logout
 
 Products (Public)
+
     GET    /api/products
     GET    /api/products/:id
 
 Products (Admin)
+
     POST   /api/admin/products
     PUT    /api/admin/products/:id
     DELETE /api/admin/products/:id
 
 Cart
+
     POST   /api/cart/add
     GET    /api/cart
     DELETE /api/cart/remove/:productId
 
 Orders
+
     POST   /api/orders
     GET    /api/orders/my
     GET    /api/admin/orders
     PUT    /api/admin/orders/:id/status (admin)
 
 Admin Stats
-GET    /api/admin/stats
+
+    GET    /api/admin/stats
 
 👤 Admin Seeding
 
