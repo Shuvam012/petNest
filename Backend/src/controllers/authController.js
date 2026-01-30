@@ -86,4 +86,9 @@ const logoutUser = (req, res) => {
 };
 
 
-export { signup, loginUser , logoutUser};
+const getMe = (req, res) => {
+    res.status(200).json(req.user);
+};
+
+
+export { signup, loginUser , logoutUser, getMe };

@@ -9,12 +9,22 @@ import productRoutes from './routes/productRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 
+import cors from "cors"
+
 
 
 dotenv.config();
 connectDB();
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, // for cookies
+  })
+)
+
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
