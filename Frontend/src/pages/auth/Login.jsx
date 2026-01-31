@@ -132,6 +132,7 @@
 
 
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import logo from '../../assets/2.png';
@@ -230,6 +231,9 @@ const Login = () => {
               <label className="text-sm font-semibold text-gray-700">
                 Password
               </label>
+               {/* <Link to="/forgot-password" size="sm" className="text-xs font-bold text-[#5A8B05] hover:underline">
+//                   Forgot Password?
+//                 </Link> */}
               <div className="relative group">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input

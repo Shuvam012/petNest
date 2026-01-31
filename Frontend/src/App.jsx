@@ -1,5 +1,6 @@
 import {  Routes, Route } from "react-router-dom"
 import ProtectedRoute from "./routes/ProtectedRoute"
+import {Toaster} from 'react-hot-toast'
 
 //pages
 import Login from "./pages/auth/Login"
@@ -24,6 +25,7 @@ function App() {
   return (
    <>
       <Navbar />
+      <Toaster position="top-right" reverseOrder= {false}/>
         <Routes>
 
           {/* public routes */}

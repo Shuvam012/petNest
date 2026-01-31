@@ -1,6 +1,7 @@
 
 
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, PawPrint, Eye, EyeOff } from 'lucide-react';
 import logo from '../../assets/2.png';
@@ -33,6 +34,7 @@ const Register = () => {
     try {
       // 1️⃣ Register user
       await api.post("/auth/signup", formData);
+      toast.success("Account created successfully 🎉");
 
       // 2️⃣ Auto login after register
       await login({
@@ -44,7 +46,10 @@ const Register = () => {
       navigate("/");
     } catch (err) {
       setError(
-        err.response?.data?.message || "Registration failed. Try again."
+        toast.error(
+          error?.response?.data?.message || "Signup failed",
+
+          err.response?.data?.message || "Registration failed. Try again.")
       );
     } finally {
       setLoading(false);

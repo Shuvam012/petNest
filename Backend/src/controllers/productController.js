@@ -203,7 +203,7 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
     try {
-        const product = await Product.findByOne({
+        const product = await Product.findOne({
             _id: req.params.id,
             isActive: true
         });

@@ -2,10 +2,13 @@
 import { Link, NavLink } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { useAuthContext } from "../../context/AuthContext";
+import { useCartContext } from "../../context/CartContext";
 import logo from "../../assets/2.png";
 
 const Navbar = () => {
   const { user, isAdmin, logout } = useAuthContext();
+  const { cartCount } = useCartContext()
+
 
   const activeLink =
     "text-[#5A8B05] font-bold border-b-2 border-[#5A8B05]";
@@ -37,7 +40,17 @@ const Navbar = () => {
             Home
           </NavLink>
 
-         
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              isActive ? activeLink : inactiveLink
+            }
+
+          >
+            Products
+          </NavLink>
+
+
 
           {user && (
             <NavLink
@@ -62,7 +75,15 @@ const Navbar = () => {
           )}
 
 
-           {/* Cart – ALWAYS visible */}
+          {/* Cart – ALWAYS visible */}
+          {/* <NavLink
+            to={user ? "/cart" : "/login"}
+            className={({ isActive }) =>
+              `relative ${isActive ? activeLink : inactiveLink}`
+            }
+          >
+            <ShoppingCart className="w-5 h-5" />
+          </NavLink> */}
           <NavLink
             to={user ? "/cart" : "/login"}
             className={({ isActive }) =>
@@ -70,7 +91,14 @@ const Navbar = () => {
             }
           >
             <ShoppingCart className="w-5 h-5" />
+
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                {cartCount}
+              </span>
+            )}
           </NavLink>
+
 
           {/* Auth Section */}
           <div className="flex items-center gap-4 ml-4 border-l pl-6 border-gray-200">

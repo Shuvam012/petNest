@@ -12,7 +12,12 @@ const getCart = async (req, res) => {
             cart = await Cart.create({ user: userid, items: [] })
         }
 
-        res.status(200).json(cart)
+        // res.status(200).json(cart)
+        res.status(200).json({
+            items: cart.items,
+            totalPrice: cart.totalPrice,
+        });
+
 
     } catch (error) {
         res.status(500).json({ message: "faild to fetch cart" + error.message });
@@ -58,8 +63,15 @@ const addToCart = async (req, res) => {
         );
 
         await cart.save();
+        await cart.populate("items.product", "name price image");
 
-        res.status(200).json(cart);
+
+        // res.status(200).json(cart);
+        res.status(200).json({
+            items: cart.items,
+            totalPrice: cart.totalPrice,
+        });
+
 
     } catch (error) {
         res.status(500).json({ message: "failed to add to cart" + error.message });
@@ -94,8 +106,15 @@ const updateCartItem = async (req, res) => {
             (sum, item) => sum + item.price * item.quantity, 0
         );
         await cart.save();
+        await cart.populate("items.product", "name price image");
 
-        res.status(200).json(cart);
+
+        // res.status(200).json(cart);
+        res.status(200).json({
+            items: cart.items,
+            totalPrice: cart.totalPrice,
+        });
+
     } catch (error) {
         res.status(500).json({ message: "failed to update cart item" + error.message });
     }
@@ -121,7 +140,14 @@ const removeFromCart = async (req, res) => {
 
 
         await cart.save();
-        res.status(200).json(cart);
+        await cart.populate("items.product", "name price image");
+
+        // res.status(200).json(cart);
+        res.status(200).json({
+            items: cart.items,
+            totalPrice: cart.totalPrice,
+        });
+
 
     } catch (error) {
         res.status(500).json({ message: "failed to remove from cart" + error.message });
