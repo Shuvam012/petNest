@@ -50,7 +50,7 @@ const placeOrder = async (req, res) => {
             items: orderItems,
             totalAmount,
             paymentMethod: paymentMethod || "COD",
-            paymentStatus: "Pending",
+            paymentStatus: "pending",
             shippingAddress
         });
 

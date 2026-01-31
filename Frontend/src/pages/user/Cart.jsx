@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
   Trash2,
@@ -12,6 +13,7 @@ import {
 import { useCartContext } from "../../context/CartContext";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { cartItems, removeFromCart, updateQuantity } = useCartContext();
 
   const subtotal = cartItems.reduce(
@@ -64,7 +66,8 @@ const Cart = () => {
           <div className="lg:w-[70%] space-y-4">
             {cartItems.map((item) => (
               <div
-                key={item._id || item.id}
+                // key={item._id || item.id}
+                key={item.product._id}
                 className="bg-white p-4 md:p-6 rounded-[2rem] shadow-sm border border-gray-50 flex items-center gap-4 md:gap-6"
               >
                 {/* Image */}
@@ -172,7 +175,9 @@ const Cart = () => {
                 </div>
               </div>
 
-              <button className="w-full bg-[#5A8B05] hover:bg-[#6B4226] text-white font-bold py-4 rounded-2xl mt-8 shadow-lg flex items-center justify-center gap-2">
+              <button 
+              onClick={() => navigate('/checkout')}
+              className="w-full bg-[#5A8B05] hover:bg-[#6B4226] text-white font-bold py-4 rounded-2xl mt-8 shadow-lg flex items-center justify-center gap-2">
                 Proceed to Checkout
                 <ArrowRight size={18} />
               </button>

@@ -8,9 +8,10 @@ import Register from "./pages/auth/Register"
 import Home from "./pages/user/Home"
 import Cart from "./pages/user/Cart"
 import Orders from "./pages/user/Orders"
-import AdminDashboard from "./pages/admin/Dashboard"
+import AdminDashboard from "./pages/admin/AdminDashboard"
 import AdminProducts from "./pages/admin/Products"
 import Products from "./pages/user/Products"
+import Checkout from "./pages/user/Checkout"
 
 
 //common
@@ -20,6 +21,8 @@ import Footer from "./components/common/Footer"
 
 
 function App() {
+
+
 
 
   return (
@@ -45,6 +48,7 @@ function App() {
             
             <Route path="/cart" element={<Cart />} />
             <Route path="/orders" element={<Orders />} />
+            <Route path="/checkout" element={<Checkout/>}/>
           </Route>
 
 
