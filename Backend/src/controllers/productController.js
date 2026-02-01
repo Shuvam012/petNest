@@ -78,7 +78,7 @@ const updateProduct = async (req, res) => {
             return res.status(404).json({ message: "Product not found" });
         }
 
-        object.assign(product, req.body);
+        Object.assign(product, req.body);
         const updateProduct = await product.save();
 
         res.status(200).json({
@@ -119,6 +119,25 @@ const deleteProduct = async (req, res) => {
         });
     }
 }
+
+/**
+ * @desc Get all products (Admin)
+ * @route GET /api/admin/products
+ * @access Private/Admin
+ */
+const getAllProductsAdmin = async (req, res) => {
+    try {
+        const products = await Product.find().sort({ createdAt: -1 });
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to fetch products",
+            error: error.message,
+        });
+    }
+};
+
+
 
 /**
  * @desc Get all products (Public)
@@ -226,5 +245,6 @@ export {
     updateProduct,
     deleteProduct,
     getAllProducts,
-    getProductById
+    getProductById,
+    getAllProductsAdmin
 }

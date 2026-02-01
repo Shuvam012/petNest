@@ -9,10 +9,12 @@ import Home from "./pages/user/Home"
 import Cart from "./pages/user/Cart"
 import Orders from "./pages/user/Orders"
 import AdminDashboard from "./pages/admin/AdminDashboard"
-import AdminProducts from "./pages/admin/Products"
+import AdminProducts from "./pages/admin/AdminProducts"
 import Products from "./pages/user/Products"
 import Checkout from "./pages/user/Checkout"
-
+import AdminOrders from "./pages/admin/AdminOrders"
+// import AdminSidebar from "./components/admin/AdminSidebar"
+// import AdminProducts from "./pages/admin/AdminProducts"
 
 //common
 import Navbar from "./components/common/Navbar"
@@ -57,7 +59,12 @@ function App() {
           <Route element={<ProtectedRoute adminOnly />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/products" element={<AdminProducts />} />
+             {/* <Route path = '/admin/adminOrder' element={<AdminOrders  />} /> */}
+             <Route path="/admin/orders" element={<AdminOrders />} />
+             <Route path="/admin/products" element={<AdminProducts />} />
+             
           </Route>
+         
 
 
         </Routes>

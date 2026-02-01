@@ -6,7 +6,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: "petNest/products",
-        allowedFormats: ["jpg", "png", "jpeg","webp"],
+        allowed_Formats: ["jpg", "png", "jpeg","webp"],
     },
 });
 
