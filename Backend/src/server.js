@@ -5,7 +5,7 @@ import express from 'express';
 
 
 import cookieParser from 'cookie-parser';
-import connectDB  from './config/db.js';
+import connectDB from './config/db.js';
 import authRoutes from './routes/authRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import adminProductRoutes from './routes/adminProductRoutes.js';
@@ -24,7 +24,14 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL ||"http://localhost:5173",
+    origin: [
+      process.env.FRONTEND_URL,
+      "http://localhost:5173",
+      process.env.PRODUCT_FRONTEND_URL,
+      "http://localhost:5173"
+
+
+    ],
     credentials: true, // for cookies
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Add OPTIONS for preflight
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
@@ -33,7 +40,7 @@ app.use(
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser()); 
+app.use(cookieParser());
 
 const PORT = process.env.PORT || 5000
 
@@ -55,8 +62,8 @@ app.use("/api/orders", orderRoutes); //order routes
 
 
 
-app.listen(PORT, () => {    
-    // console.log(`Server running on port ${PORT}`);
-    console.log(`Server running at http://localhost:${PORT}`);
+app.listen(PORT, () => {
+  // console.log(`Server running on port ${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
 
