@@ -47,7 +47,7 @@ const Login = () => {
   return (
     <div className="min-h-screen bg-[#FAFAF5] flex items-center justify-center p-4 md:p-6 font-sans">
       <Toaster position="top-center" />
-      
+
       <div className="max-w-5xl w-full bg-white rounded-[2.5rem] shadow-[0_20px_50px_rgba(107,66,38,0.05)] overflow-hidden flex flex-col md:flex-row border border-stone-100">
 
         {/* --- LEFT SIDE: BRANDING --- */}
@@ -55,12 +55,12 @@ const Login = () => {
           {/* Decorative Circles/Patterns */}
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 -ml-10 -mb-10 w-40 h-40 bg-black/5 rounded-full blur-2xl"></div>
-          
+
           <div className="relative z-10">
             <div className="bg-white/20 backdrop-blur-md border border-white/30  rounded-t-full w-fit shadow-xl mb-12">
               <img src={logo} alt="PetNest" className="h-25 w-auto" />
             </div>
-            
+
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <span className="h-1 w-10 bg-white/40 rounded-full"></span>
@@ -76,8 +76,8 @@ const Login = () => {
           </div>
 
           <div className="relative z-10 mt-12 flex items-center gap-3 text-white/60">
-             <PawPrint size={20} />
-             <span className="text-sm font-bold italic tracking-tight">Trusted by 10,000+ pet parents</span>
+            <PawPrint size={20} />
+            <span className="text-sm font-bold italic tracking-tight">Trusted by 10,000+ pet parents</span>
           </div>
         </div>
 

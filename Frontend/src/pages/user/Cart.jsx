@@ -52,33 +52,33 @@ const Cart = () => {
   return (
     <div className="bg-[#FAFAF5] min-h-screen py-16">
       <div className="max-w-6xl mx-auto px-6">
-        
+
         {/* STEP PROGRESSOR */}
         <div className="flex items-center justify-center gap-4 mb-12">
-           <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#5A8B05] text-white flex items-center justify-center text-xs font-black">1</span>
-              <span className="text-sm font-black text-[#6B4226]">CART</span>
-           </div>
-           <div className="w-12 h-[2px] bg-stone-200" />
-           <div className="flex items-center gap-2 opacity-30">
-              <span className="w-8 h-8 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center text-xs font-black">2</span>
-              <span className="text-sm font-black text-stone-500">CHECKOUT</span>
-           </div>
+          <div className="flex items-center gap-2">
+            <span className="w-8 h-8 rounded-full bg-[#5A8B05] text-white flex items-center justify-center text-xs font-black">1</span>
+            <span className="text-sm font-black text-[#6B4226]">CART</span>
+          </div>
+          <div className="w-12 h-[2px] bg-stone-200" />
+          <div className="flex items-center gap-2 opacity-30">
+            <span className="w-8 h-8 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center text-xs font-black">2</span>
+            <span className="text-sm font-black text-stone-500">CHECKOUT</span>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-10">
           {/* LEFT - ITEM LIST */}
           <div className="lg:w-[65%] space-y-6">
             <header className="flex justify-between items-end mb-4">
-               <div>
-                  <h1 className="text-4xl font-black text-[#6B4226] tracking-tight">Your Cart</h1>
-                  <p className="text-stone-400 font-bold text-xs uppercase tracking-widest mt-1">
-                    {cartItems.length} Products Reserved
-                  </p>
-               </div>
-               <Link to="/products" className="text-[#5A8B05] font-black text-xs uppercase flex items-center gap-1 hover:underline">
-                  <ChevronLeft size={14} /> Continue Shopping
-               </Link>
+              <div>
+                <h1 className="text-4xl font-black text-[#6B4226] tracking-tight">Your Cart</h1>
+                <p className="text-stone-400 font-bold text-xs uppercase tracking-widest mt-1">
+                  {cartItems.length} Products Reserved
+                </p>
+              </div>
+              <Link to="/products" className="text-[#5A8B05] font-black text-xs uppercase flex items-center gap-1 hover:underline">
+                <ChevronLeft size={14} /> Continue Shopping
+              </Link>
             </header>
 
             {cartItems.map((item) => (
@@ -103,7 +103,7 @@ const Cart = () => {
                         {item.product.name}
                       </h3>
                       <p className="text-stone-400 text-[11px] font-bold uppercase tracking-wide mt-1">
-                         {item.product.category || "General Pet Care"}
+                        {item.product.category || "General Pet Care"}
                       </p>
                     </div>
                     <p className="text-xl font-black text-[#6B4226]">
@@ -152,13 +152,13 @@ const Cart = () => {
 
               {/* Promo Code Box */}
               <div className="relative">
-                 <input 
-                  type="text" 
-                  placeholder="PROMO CODE" 
+                <input
+                  type="text"
+                  placeholder="PROMO CODE"
                   className="w-full bg-stone-50 border border-stone-100 py-4 pl-12 pr-4 rounded-2xl text-[10px] font-black tracking-widest focus:outline-none focus:ring-2 focus:ring-[#5A8B05]/20 uppercase"
-                 />
-                 <Tag size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-300" />
-                 <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5A8B05] font-black text-[10px] hover:underline">APPLY</button>
+                />
+                <Tag size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-300" />
+                <button className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5A8B05] font-black text-[10px] hover:underline">APPLY</button>
               </div>
 
               <div className="space-y-4">
@@ -179,7 +179,7 @@ const Cart = () => {
               </div>
 
               <div className="space-y-4">
-                <button 
+                <button
                   onClick={() => navigate('/checkout')}
                   className="w-full bg-[#6B4226] hover:bg-[#5A8B05] text-white font-black py-5 rounded-[1.5rem] shadow-lg shadow-stone-200 transition-all active:scale-[0.98] flex items-center justify-center gap-3 text-sm tracking-widest"
                 >

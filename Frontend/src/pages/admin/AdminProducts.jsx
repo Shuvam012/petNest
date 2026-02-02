@@ -74,7 +74,7 @@
 //       <AdminSidebar />
 
 //       <main className="flex-1 p-6 lg:p-10 overflow-x-hidden">
-        
+
 //         {/* --- HEADER --- */}
 //         <header className="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-10 gap-6">
 //           <div>
@@ -102,7 +102,7 @@
 
 //         {/* --- DATA TABLE CARD --- */}
 //         <div className="bg-white rounded-[3.5rem] shadow-sm border border-stone-100 overflow-hidden">
-          
+
 //           {/* Table Controls */}
 //           <div className="p-8 border-b border-stone-50 bg-stone-50/20 flex flex-col xl:flex-row justify-between items-center gap-6">
 //             <div className="relative w-full max-w-md">
@@ -201,7 +201,7 @@
 //                         >
 //                           <Edit3 size={18} />
 //                         </button>
-                        
+
 //                         <button
 //                           onClick={() => handleDelete(product._id)}
 //                           className="p-3 rounded-2xl bg-rose-50 text-rose-400 hover:bg-rose-500 hover:text-white transition-all shadow-sm"
@@ -356,18 +356,18 @@ const AdminProducts = () => {
       <AdminSidebar />
 
       <main className="flex-1 p-6 lg:p-10 overflow-x-hidden">
-        
+
         {/* --- HEADER --- */}
         <header className="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-10 gap-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
-               <span className="h-1 w-6 bg-[#5A8B05] rounded-full"></span>
-               <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest">Inventory Management</p>
+              <span className="h-1 w-6 bg-[#5A8B05] rounded-full"></span>
+              <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest">Inventory Management</p>
             </div>
             <h1 className="text-4xl font-black text-[#6B4226] tracking-tight">Product Catalog</h1>
           </div>
 
-          <button  
+          <button
             onClick={() => { setSelectedProduct(null); setShowModal(true); }}
             className="flex items-center gap-2 bg-[#5A8B05] text-white px-8 py-4 rounded-2xl font-black transition-all shadow-xl shadow-[#5A8B05]/20 hover:bg-[#4a7204] active:scale-95 text-sm uppercase tracking-widest"
           >
@@ -377,14 +377,14 @@ const AdminProducts = () => {
 
         {/* --- SUMMARY STATS --- */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <QuickStat label="Total SKU" value={products.length} icon={<Package size={20}/>} color="blue" />
-          <QuickStat label="Available" value={products.filter(p => p.stock > 0).length} icon={<CheckCircle2 size={20}/>} color="green" />
-          <QuickStat label="Stock Alerts" value={products.filter(p => p.stock <= 0).length} icon={<AlertCircle size={20}/>} color="red" />
+          <QuickStat label="Total SKU" value={products.length} icon={<Package size={20} />} color="blue" />
+          <QuickStat label="Available" value={products.filter(p => p.stock > 0).length} icon={<CheckCircle2 size={20} />} color="green" />
+          <QuickStat label="Stock Alerts" value={products.filter(p => p.stock <= 0).length} icon={<AlertCircle size={20} />} color="red" />
         </div>
 
         {/* --- DATA TABLE CARD --- */}
         <div className="bg-white rounded-[3.5rem] shadow-sm border border-stone-100 overflow-hidden">
-          
+
           {/* Table Controls */}
           <div className="p-8 border-b border-stone-50 bg-stone-50/20 flex flex-col xl:flex-row justify-between items-center gap-6">
             <div className="relative w-full max-w-md">
@@ -402,11 +402,10 @@ const AdminProducts = () => {
                 <button
                   key={status}
                   onClick={() => setStockFilter(status)}
-                  className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
-                    stockFilter === status
+                  className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${stockFilter === status
                       ? "bg-white text-[#6B4226] shadow-md"
                       : "text-stone-400 hover:text-stone-600"
-                  }`}
+                    }`}
                 >
                   {status === 'all' ? 'All Items' : status === 'inStock' ? 'Live' : 'Sold Out'}
                 </button>
@@ -442,8 +441,8 @@ const AdminProducts = () => {
                           )}
                         </div>
                         <div className="flex flex-col">
-                            <span className="font-black text-[#6B4226] text-sm leading-tight">{product.name}</span>
-                            <span className="text-[10px] font-bold text-stone-300 uppercase tracking-tighter mt-1">ID: {product._id.slice(-6).toUpperCase()}</span>
+                          <span className="font-black text-[#6B4226] text-sm leading-tight">{product.name}</span>
+                          <span className="text-[10px] font-bold text-stone-300 uppercase tracking-tighter mt-1">ID: {product._id.slice(-6).toUpperCase()}</span>
                         </div>
                       </div>
                     </td>
@@ -461,7 +460,7 @@ const AdminProducts = () => {
                     <td className="px-10 py-6">
                       <div className="flex items-center gap-2">
                         <span className={`font-black text-sm ${product.stock <= 5 ? 'text-amber-500' : 'text-stone-700'}`}>
-                            {product.stock}
+                          {product.stock}
                         </span>
                         {product.stock <= 5 && <Info size={14} className="text-amber-400 animate-pulse" />}
                       </div>
@@ -469,9 +468,8 @@ const AdminProducts = () => {
 
                     <td className="px-10 py-6">
                       <div className="flex items-center gap-3">
-                        <span className={`px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-sm ${
-                          product.isActive ? "bg-green-50 text-[#5A8B05] border-green-100" : "bg-red-50 text-red-600 border-red-100"
-                        }`}>
+                        <span className={`px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest border shadow-sm ${product.isActive ? "bg-green-50 text-[#5A8B05] border-green-100" : "bg-red-50 text-red-600 border-red-100"
+                          }`}>
                           {product.isActive ? "Online" : "Archived"}
                         </span>
                       </div>
@@ -480,14 +478,14 @@ const AdminProducts = () => {
                     <td className="px-10 py-6 text-right pr-12">
                       <div className="flex justify-end gap-3">
                         {/* EDIT BUTTON */}
-                        <button 
+                        <button
                           onClick={() => { setSelectedProduct(product); setShowModal(true); }}
                           className="p-3 bg-stone-50 text-stone-400 rounded-2xl hover:bg-[#6B4226] hover:text-white transition-all shadow-sm"
                           title="Edit Details"
                         >
                           <Edit3 size={18} />
                         </button>
-                        
+
                         {/* TOGGLE STATUS BUTTON (Archive or Active) */}
                         {product.isActive ? (
                           <button
@@ -516,7 +514,7 @@ const AdminProducts = () => {
             {filteredProducts.length === 0 && (
               <div className="py-32 text-center">
                 <div className="w-20 h-20 bg-stone-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-dashed border-stone-200">
-                    <Package size={32} className="text-stone-200" />
+                  <Package size={32} className="text-stone-200" />
                 </div>
                 <p className="text-stone-300 font-black text-xs uppercase tracking-[0.2em]">No matching products found</p>
               </div>
@@ -526,9 +524,9 @@ const AdminProducts = () => {
 
         {/* Footer Meta */}
         <div className="mt-8 flex justify-center items-center gap-4 opacity-30">
-            <div className="h-[1px] w-12 bg-stone-400"></div>
-            <MoreHorizontal size={20} />
-            <div className="h-[1px] w-12 bg-stone-400"></div>
+          <div className="h-[1px] w-12 bg-stone-400"></div>
+          <MoreHorizontal size={20} />
+          <div className="h-[1px] w-12 bg-stone-400"></div>
         </div>
       </main>
 

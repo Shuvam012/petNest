@@ -6,6 +6,7 @@ node_modules/
 
 # Frontend
 Frontend/node_modules/
+Frontend/.env
 
 # Backend
 Backend/node_modules/

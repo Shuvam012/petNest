@@ -85,12 +85,12 @@ const Checkout = () => {
   return (
     <div className="bg-[#FAFAF5] min-h-screen py-12 px-6">
       <div className="max-w-6xl mx-auto">
-        
+
         {/* --- HEADER --- */}
         <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <Link to="/cart" className="flex items-center gap-1 text-stone-400 font-black text-[10px] uppercase tracking-widest hover:text-[#6B4226] mb-2 transition-colors">
-               <ChevronLeft size={14} /> Back to Cart
+              <ChevronLeft size={14} /> Back to Cart
             </Link>
             <h1 className="text-4xl font-black text-[#6B4226] tracking-tight">Checkout</h1>
           </div>
@@ -106,9 +106,9 @@ const Checkout = () => {
             </span>
             <span className="text-sm font-black text-stone-400">CART</span>
           </div>
-          
+
           <div className="w-12 h-[2px] bg-[#5A8B05]" />
-          
+
           {/* Step 2: Checkout (Active) */}
           <div className="flex items-center gap-2">
             <span className="w-8 h-8 rounded-full bg-[#5A8B05] text-white flex items-center justify-center text-xs font-black shadow-lg shadow-[#5A8B05]/30">
@@ -119,7 +119,7 @@ const Checkout = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-10 items-start">
-          
+
           {/* --- LEFT: ADDRESS FORM --- */}
           <div className="w-full lg:w-[60%]">
             <div className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-stone-100">
@@ -186,14 +186,14 @@ const Checkout = () => {
 
                 {/* Payment Method Preview */}
                 <div className="mt-8 p-5 bg-[#FAFAF5] rounded-[1.5rem] border border-stone-100 flex items-center justify-between">
-                   <div className="flex items-center gap-3">
-                      <CreditCard className="text-[#6B4226]" />
-                      <div>
-                        <p className="text-sm font-black text-[#6B4226]">Cash on Delivery</p>
-                        <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Pay at your doorstep</p>
-                      </div>
-                   </div>
-                   <div className="w-5 h-5 rounded-full border-4 border-[#5A8B05] bg-white"></div>
+                  <div className="flex items-center gap-3">
+                    <CreditCard className="text-[#6B4226]" />
+                    <div>
+                      <p className="text-sm font-black text-[#6B4226]">Cash on Delivery</p>
+                      <p className="text-[10px] font-bold text-stone-400 uppercase tracking-widest">Pay at your doorstep</p>
+                    </div>
+                  </div>
+                  <div className="w-5 h-5 rounded-full border-4 border-[#5A8B05] bg-white"></div>
                 </div>
 
                 <button
@@ -219,7 +219,7 @@ const Checkout = () => {
                 {cartItems.map((item) => (
                   <div key={item.product._id} className="flex justify-between items-center text-sm font-bold">
                     <span className="text-stone-500 line-clamp-1 flex-1 pr-4">
-                       {item.product.name} <span className="text-[10px] text-stone-300 ml-1">x{item.quantity}</span>
+                      {item.product.name} <span className="text-[10px] text-stone-300 ml-1">x{item.quantity}</span>
                     </span>
                     <span className="text-[#6B4226]">₹{(item.price * item.quantity).toLocaleString()}</span>
                   </div>
@@ -245,12 +245,12 @@ const Checkout = () => {
 
               <div className="mt-8 pt-6 border-t border-stone-100 flex items-center justify-center gap-6">
                 <div className="flex flex-col items-center gap-1">
-                   <ShieldCheck size={18} className="text-[#5A8B05]" />
-                   <span className="text-[8px] font-black text-stone-400 uppercase">Secure</span>
+                  <ShieldCheck size={18} className="text-[#5A8B05]" />
+                  <span className="text-[8px] font-black text-stone-400 uppercase">Secure</span>
                 </div>
                 <div className="flex flex-col items-center gap-1">
-                   <Truck size={18} className="text-stone-300" />
-                   <span className="text-[8px] font-black text-stone-400 uppercase">Trackable</span>
+                  <Truck size={18} className="text-stone-300" />
+                  <span className="text-[8px] font-black text-stone-400 uppercase">Trackable</span>
                 </div>
               </div>
             </div>

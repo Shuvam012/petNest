@@ -33,39 +33,6 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-//     // ✅ Add product to cart
-//     const addToCart = async (productId) => {
-//         if (!user) return;
-
-//         try {
-//             const res = await axios.post("/api/cart", { productId });
-//             setCartItems(res.data.items);
-//         } catch (error) {
-//             console.error("Add to cart failed", error);
-//         }
-//     };
-
-//     // ✅ Remove product from cart
-//     const removeFromCart = async (productId) => {
-//         try {
-//             const res = await axios.delete(`/api/cart/${productId}`);
-//             setCartItems(res.data.items);
-//         } catch (error) {
-//             console.error("Remove cart item failed", error);
-//         }
-//     };
-
-//     const updateQuantity = async (productId, delta) => {
-//     try {
-//         const res = await axios.put("/api/cart", {
-//             productId,
-//             delta,
-//         });
-//         setCartItems(res.data.items);
-//     } catch (error) {
-//         console.error("Update quantity failed", error);
-//     }
-// };
 
 // add to cart
 const addToCart = async (productId) => {

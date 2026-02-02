@@ -1,7 +1,5 @@
 
 
-
-
 import React, { useState } from 'react'
 import { Search, ShieldCheck, Truck, Heart, ShoppingBag, Package, MousePointerClick, Star, ArrowRight } from 'lucide-react'
 import heroImg from "../../assets/dog&cat.jpg"

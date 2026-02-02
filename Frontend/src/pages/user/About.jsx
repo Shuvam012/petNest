@@ -1,7 +1,6 @@
 import React from 'react';
 import { Heart, ShieldCheck, Truck, Users, PawPrint, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
-// import aboutImage from '../../assets/about-pet.jpg'; // Place a high-quality pet image here
 import pet from "../../assets/pet.jpg"
 
 const About = () => {
