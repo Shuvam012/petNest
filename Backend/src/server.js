@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
-
+import cors from "cors"
 import express from 'express';
 
 
@@ -13,7 +13,7 @@ import productRoutes from './routes/productRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 
-import cors from "cors"
+// import cors from "cors"
 
 
 
@@ -33,7 +33,7 @@ app.use(
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser()); 
 
 const PORT = process.env.PORT || 5000
 
