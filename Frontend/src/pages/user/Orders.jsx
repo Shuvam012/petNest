@@ -1,222 +1,5 @@
 
 
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import { Link } from "react-router-dom";
-// import {
-//   Package,
-//   ChevronRight,
-//   XCircle,
-//   CheckCircle2,
-//   Truck,
-//   Clock,
-// } from "lucide-react";
-
-// const Orders = () => {
-//   const [orders, setOrders] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   // ✅ FETCH USER ORDERS
-//   const fetchOrders = async () => {
-//     try {
-//       setLoading(true);
-//       const res = await axios.get("/api/orders/my", {
-//         withCredentials: true,
-//       });
-//       setOrders(res.data || []);
-//     } catch (error) {
-//       console.error("Failed to fetch orders", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchOrders();
-//   }, []);
-
-//   // ✅ CANCEL ORDER
-//   const handleCancelOrder = async (orderId) => {
-//     const confirmCancel = window.confirm(
-//       "Are you sure you want to cancel this order?"
-//     );
-//     if (!confirmCancel) return;
-
-//     try {
-//       await axios.delete(`/api/orders/cancel/${orderId}`, {
-//         withCredentials: true,
-//       });
-
-//       alert("Order cancelled successfully ❌");
-//       fetchOrders(); // refresh list
-//     } catch (error) {
-//       alert(error.response?.data?.message || "Failed to cancel order");
-//     }
-//   };
-
-//   const getStatusStyle = (status) => {
-//     switch (status) {
-//       case "placed":
-//         return "bg-yellow-50 text-yellow-600 border-yellow-100";
-//       case "shipped":
-//         return "bg-blue-50 text-blue-600 border-blue-100";
-//       case "delivered":
-//         return "bg-green-50 text-[#5A8B05] border-green-100";
-//       case "cancelled":
-//         return "bg-red-50 text-red-600 border-red-100";
-//       default:
-//         return "bg-gray-50 text-gray-600";
-//     }
-//   };
-
-//   const getStatusIcon = (status) => {
-//     switch (status) {
-//       case "placed":
-//         return <Clock size={14} />;
-//       case "shipped":
-//         return <Truck size={14} />;
-//       case "delivered":
-//         return <CheckCircle2 size={14} />;
-//       case "cancelled":
-//         return <XCircle size={14} />;
-//       default:
-//         return null;
-//     }
-//   };
-
-//   // 🔄 LOADING STATE
-//   if (loading) {
-//     return (
-//       <div className="min-h-[70vh] flex items-center justify-center bg-[#FAFAF5]">
-//         <p className="font-bold text-gray-400">Loading orders...</p>
-//       </div>
-//     );
-//   }
-
-//   // 📦 EMPTY STATE
-//   if (orders.length === 0) {
-//     return (
-//       <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 bg-[#FAFAF5]">
-//         <div className="bg-white p-12 rounded-[3rem] shadow-sm text-center border border-gray-100">
-//           <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-//             <Package size={40} className="text-gray-300" />
-//           </div>
-//           <h2 className="text-2xl font-black text-[#6B4226]">No orders yet</h2>
-//           <p className="text-gray-400 mt-2 mb-8 max-w-xs">
-//             You haven't placed any orders yet.
-//           </p>
-//           <Link
-//             to="/products"
-//             className="bg-[#5A8B05] text-white px-8 py-3 rounded-2xl font-bold hover:bg-[#6B4226]"
-//           >
-//             Browse Products
-//           </Link>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="bg-[#FAFAF5] min-h-screen py-12">
-//       <div className="max-w-4xl mx-auto px-6">
-//         {/* HEADER */}
-//         <div className="mb-10">
-//           <h1 className="text-3xl font-black text-[#6B4226]">My Orders</h1>
-//           <p className="text-gray-500 font-medium">
-//             Track and manage your purchases
-//           </p>
-//         </div>
-
-//         {/* ORDERS LIST */}
-//         <div className="space-y-6">
-//           {orders.map((order) => (
-//             <div
-//               key={order._id}
-//               className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden"
-//             >
-//               {/* TOP */}
-//               <div className="p-6 border-b flex justify-between items-center flex-wrap gap-4">
-//                 <div>
-//                   <p className="text-xs text-gray-400 font-bold uppercase">
-//                     Order ID
-//                   </p>
-//                   <p className="font-black text-[#6B4226]">
-//                     #{order._id.slice(-6)}
-//                   </p>
-//                   <p className="text-xs text-gray-500">
-//                     {new Date(order.createdAt).toDateString()}
-//                   </p>
-//                 </div>
-
-//                 <div className="flex gap-3 items-center">
-//                   <span
-//                     className={`flex items-center gap-1 px-4 py-1.5 rounded-full text-xs font-bold border ${getStatusStyle(
-//                       order.orderStatus
-//                     )}`}
-//                   >
-//                     {getStatusIcon(order.orderStatus)}
-//                     {order.orderStatus.toUpperCase()}
-//                   </span>
-
-//                   <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-gray-100 text-gray-600">
-//                     {order.paymentMethod}
-//                   </span>
-//                 </div>
-//               </div>
-
-//               {/* ITEMS */}
-//               <div className="p-6 bg-gray-50/40 space-y-2">
-//                 {order.items.map((item) => (
-//                   <div key={item._id} className="flex gap-2 items-center">
-//                     <span className="w-2 h-2 bg-[#5A8B05] rounded-full" />
-//                     <p className="text-sm text-gray-600">
-//                       {item.product?.name} ×{" "}
-//                       <span className="font-bold">{item.quantity}</span>
-//                     </p>
-//                   </div>
-//                 ))}
-//               </div>
-
-//               {/* BOTTOM */}
-//               <div className="p-6 flex justify-between items-center flex-wrap gap-4">
-//                 <div>
-//                   <p className="text-xs text-gray-400 font-bold uppercase">
-//                     Total Amount
-//                   </p>
-//                   <p className="text-2xl font-black text-[#6B4226]">
-//                     ₹{order.totalAmount}
-//                   </p>
-//                 </div>
-
-//                 <div className="flex gap-3">
-//                   {order.orderStatus === "placed" && (
-//                     <button
-//                       onClick={() => handleCancelOrder(order._id)}
-//                       className="px-6 py-3 text-xs font-bold text-red-500 hover:bg-red-50 rounded-xl"
-//                     >
-//                       Cancel Order
-//                     </button>
-//                   )}
-
-//                   {/* <button className="flex items-center gap-2 border-2 border-[#6B4226] text-[#6B4226] px-6 py-3 rounded-xl text-xs font-bold hover:bg-[#6B4226] hover:text-white">
-//                     View Details
-//                     <ChevronRight size={14} />
-//                   </button> */}
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Orders;
-
-
-
-
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -227,20 +10,19 @@ import {
   CheckCircle2,
   Truck,
   Clock,
+  ChevronRight,
+  AlertCircle
 } from "lucide-react";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [cancelLoading, setCancelLoading] = useState(null); // 🔥 per-order loader
+  const [cancelLoading, setCancelLoading] = useState(null);
 
-  // ✅ FETCH USER ORDERS
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("/api/orders/my", {
-        withCredentials: true,
-      });
+      const res = await axios.get("/api/orders/my", { withCredentials: true });
       setOrders(res.data || []);
     } catch (error) {
       console.error("Failed to fetch orders", error);
@@ -253,20 +35,12 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-  // ✅ CANCEL ORDER
   const handleCancelOrder = async (orderId) => {
-    const confirmCancel = window.confirm(
-      "Are you sure you want to cancel this order?"
-    );
-    if (!confirmCancel) return;
+    if (!window.confirm("Are you sure you want to cancel this order?")) return;
 
     try {
       setCancelLoading(orderId);
-      await axios.delete(`/api/orders/cancel/${orderId}`, {
-        withCredentials: true,
-      });
-
-      alert("Order cancelled successfully ❌");
+      await axios.delete(`/api/orders/cancel/${orderId}`, { withCredentials: true });
       fetchOrders();
     } catch (error) {
       alert(error.response?.data?.message || "Failed to cancel order");
@@ -277,93 +51,80 @@ const Orders = () => {
 
   const getStatusStyle = (status) => {
     switch (status) {
-      case "placed":
-        return "bg-yellow-50 text-yellow-600 border-yellow-100";
-      case "shipped":
-        return "bg-blue-50 text-blue-600 border-blue-100";
-      case "delivered":
-        return "bg-green-50 text-[#5A8B05] border-green-100";
-      case "cancelled":
-        return "bg-red-50 text-red-600 border-red-100";
-      default:
-        return "bg-gray-50 text-gray-600";
+      case "placed": return "bg-amber-50 text-amber-600 border-amber-100";
+      case "shipped": return "bg-blue-50 text-blue-600 border-blue-100";
+      case "delivered": return "bg-green-50 text-[#5A8B05] border-green-100";
+      case "cancelled": return "bg-red-50 text-red-600 border-red-100";
+      default: return "bg-gray-50 text-gray-600 border-gray-100";
     }
   };
 
-  // 🔥 ORDER STATUS TIMELINE
+  // 🔥 CUSTOM TIMELINE COMPONENT
   const OrderTimeline = ({ status }) => {
     const steps = [
-      { key: "placed", label: "Placed", icon: <Clock size={16} /> },
-      { key: "shipped", label: "Shipped", icon: <Truck size={16} /> },
-      { key: "delivered", label: "Delivered", icon: <CheckCircle2 size={16} /> },
+      { key: "placed", label: "Placed", icon: <Clock size={14} /> },
+      { key: "shipped", label: "Shipped", icon: <Truck size={14} /> },
+      { key: "delivered", label: "Delivered", icon: <CheckCircle2 size={14} /> },
     ];
+
+    if (status === "cancelled") {
+      return (
+        <div className="flex items-center gap-2 py-4 px-6 bg-red-50/50 rounded-2xl border border-red-100 text-red-600 text-xs font-bold">
+          <XCircle size={16} /> ORDER WAS CANCELLED
+        </div>
+      );
+    }
 
     const activeIndex = steps.findIndex((s) => s.key === status);
 
     return (
-      <div className="flex items-center justify-between mt-6">
+      <div className="flex items-center justify-between py-6 px-2">
         {steps.map((step, index) => {
-          const isActive = index <= activeIndex;
+          const isDone = index <= activeIndex;
+          const isCurrent = index === activeIndex;
+          
           return (
-            <div key={step.key} className="flex-1 flex items-center">
-              <div
-                className={`flex items-center justify-center w-9 h-9 rounded-full border
-                  ${
-                    isActive
-                      ? "bg-[#5A8B05] text-white border-[#5A8B05]"
-                      : "bg-gray-100 text-gray-400 border-gray-200"
-                  }`}
-              >
-                {step.icon}
+            <React.Fragment key={step.key}>
+              <div className="flex flex-col items-center gap-2 relative z-10">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${
+                  isDone ? "bg-[#5A8B05] border-[#5A8B05] text-white" : "bg-white border-gray-200 text-gray-300"
+                } ${isCurrent ? "ring-4 ring-[#5A8B05]/20" : ""}`}>
+                  {step.icon}
+                </div>
+                <span className={`text-[10px] font-black uppercase tracking-wider ${isDone ? "text-[#5A8B05]" : "text-gray-400"}`}>
+                  {step.label}
+                </span>
               </div>
-              <p
-                className={`ml-2 text-xs font-bold ${
-                  isActive ? "text-[#5A8B05]" : "text-gray-400"
-                }`}
-              >
-                {step.label}
-              </p>
-
               {index !== steps.length - 1 && (
-                <div
-                  className={`flex-1 h-[2px] mx-2 ${
-                    isActive ? "bg-[#5A8B05]" : "bg-gray-200"
-                  }`}
-                />
+                <div className="flex-1 h-[2px] -mt-6 mx-2 bg-gray-100 relative">
+                  <div className={`absolute inset-0 transition-all duration-1000 ${isDone && index < activeIndex ? "bg-[#5A8B05]" : "bg-transparent"}`} />
+                </div>
               )}
-            </div>
+            </React.Fragment>
           );
         })}
       </div>
     );
   };
 
-  // 🔄 LOADING STATE
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center bg-[#FAFAF5]">
-        <p className="font-bold text-gray-400">Loading orders...</p>
+      <div className="min-h-[70vh] flex flex-col items-center justify-center bg-[#FAFAF5] gap-4">
+        <div className="w-12 h-12 border-4 border-[#5A8B05]/20 border-t-[#5A8B05] rounded-full animate-spin" />
+        <p className="font-black text-stone-400 text-xs uppercase tracking-widest">Finding your orders...</p>
       </div>
     );
   }
 
-  // 📦 EMPTY STATE
   if (orders.length === 0) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center p-6 bg-[#FAFAF5]">
-        <div className="bg-white p-12 rounded-[3rem] shadow-sm text-center border border-gray-100">
-          <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Package size={40} className="text-gray-300" />
-          </div>
-          <h2 className="text-2xl font-black text-[#6B4226]">No orders yet</h2>
-          <p className="text-gray-400 mt-2 mb-8 max-w-xs">
-            You haven't placed any orders yet.
-          </p>
-          <Link
-            to="/products"
-            className="bg-[#5A8B05] text-white px-8 py-3 rounded-2xl font-bold hover:bg-[#6B4226]"
-          >
-            Browse Products
+      <div className="min-h-[80vh] flex items-center justify-center p-6 bg-[#FAFAF5]">
+        <div className="max-w-md w-full bg-white p-10 rounded-[3rem] shadow-xl shadow-stone-200/50 text-center">
+          <Package size={60} className="text-stone-200 mx-auto mb-6" />
+          <h2 className="text-3xl font-black text-[#6B4226] mb-2">No Orders Yet</h2>
+          <p className="text-stone-400 mb-8 font-medium">Looks like you haven't treated your pet to anything special recently!</p>
+          <Link to="/products" className="inline-flex items-center gap-2 bg-[#5A8B05] text-white px-8 py-4 rounded-2xl font-black text-sm hover:bg-[#4a7204] transition-all shadow-lg shadow-[#5A8B05]/30">
+            START SHOPPING <ChevronRight size={18} />
           </Link>
         </div>
       </div>
@@ -371,97 +132,81 @@ const Orders = () => {
   }
 
   return (
-    <div className="bg-[#FAFAF5] min-h-screen py-12">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="mb-10">
-          <h1 className="text-3xl font-black text-[#6B4226]">My Orders</h1>
-          <p className="text-gray-500 font-medium">
-            Track and manage your purchases
+    <div className="bg-[#FAFAF5] min-h-screen py-16 px-6">
+      <div className="max-w-4xl mx-auto">
+        <header className="mb-12 space-y-2">
+          <h1 className="text-4xl font-black text-[#6B4226] tracking-tight">Order History</h1>
+          <p className="text-stone-400 font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+            <span className="w-8 h-[2px] bg-[#5A8B05]"></span> 
+            {orders.length} Total Purchases
           </p>
-        </div>
+        </header>
 
-        <div className="space-y-6">
-          {orders.map((order) => {
-            const canCancel = order.orderStatus === "placed";
+        <div className="space-y-10">
+          {orders.map((order) => (
+            <div key={order._id} className="bg-white rounded-[2.5rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow overflow-hidden group">
+              {/* TOP HEADER */}
+              <div className="p-8 border-b border-stone-50 flex justify-between items-start flex-wrap gap-6">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-black text-stone-300 uppercase tracking-tighter">Receipt Number</span>
+                  <p className="font-mono text-lg font-bold text-[#6B4226]">#{order._id.slice(-8).toUpperCase()}</p>
+                  <p className="text-xs font-bold text-stone-400 uppercase tracking-widest">
+                    Placed on {new Date(order.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                  </p>
+                </div>
 
-            return (
-              <div
-                key={order._id}
-                className="bg-white rounded-[2rem] shadow-sm border overflow-hidden"
-              >
-                {/* TOP */}
-                <div className="p-6 border-b flex justify-between flex-wrap gap-4">
-                  <div>
-                    <p className="text-xs text-gray-400 font-bold uppercase">
-                      Order ID
-                    </p>
-                    <p className="font-black text-[#6B4226]">
-                      #{order._id.slice(-6)}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {new Date(order.createdAt).toDateString()}
-                    </p>
-                  </div>
-
-                  <span
-                    className={`px-4 py-4.5 rounded-full text-xs font-bold border ${getStatusStyle(
-                      order.orderStatus
-                    )}`}
-                  >
+                <div className="flex flex-col items-end gap-3">
+                  <span className={`px-5 py-2 rounded-full text-[10px] font-black border tracking-[0.15em] ${getStatusStyle(order.orderStatus)}`}>
                     {order.orderStatus.toUpperCase()}
                   </span>
-                </div>
-
-                {/* 🔥 TIMELINE */}
-                <div className="px-6">
-                  <OrderTimeline status={order.orderStatus} />
-                </div>
-
-                {/* ITEMS */}
-                <div className="p-6 bg-gray-50/40 space-y-2">
-                  {order.items.map((item) => (
-                    <div key={item._id} className="flex gap-2 items-center">
-                      <span className="w-2 h-2 bg-[#5A8B05] rounded-full" />
-                      <p className="text-sm text-gray-600">
-                        {item.product?.name} ×{" "}
-                        <span className="font-bold">{item.quantity}</span>
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* BOTTOM */}
-                <div className="p-6 flex justify-between items-center flex-wrap gap-4">
-                  <div>
-                    <p className="text-xs text-gray-400 font-bold uppercase">
-                      Total Amount
-                    </p>
-                    <p className="text-2xl font-black text-[#6B4226]">
-                      ₹{order.totalAmount}
-                    </p>
-                  </div>
-
-                  <div>
-                    {canCancel ? (
-                      <button
-                        onClick={() => handleCancelOrder(order._id)}
-                        disabled={cancelLoading === order._id}
-                        className="px-6 py-3 text-xs font-bold text-red-500 hover:bg-red-50 rounded-xl disabled:opacity-50"
-                      >
-                        {cancelLoading === order._id
-                          ? "Cancelling..."
-                          : "Cancel Order"}
-                      </button>
-                    ) : (
-                      <p className="text-xs text-gray-400 font-bold">
-                        This order can no longer be cancelled
-                      </p>
-                    )}
+                  <div className="text-right">
+                    <p className="text-[10px] font-black text-stone-300 uppercase">Total Paid</p>
+                    <p className="text-2xl font-black text-[#5A8B05]">₹{order.totalAmount}</p>
                   </div>
                 </div>
               </div>
-            );
-          })}
+
+              {/* TIMELINE SECTION */}
+              <div className="bg-stone-50/30 px-8">
+                <OrderTimeline status={order.orderStatus} />
+              </div>
+
+              {/* ITEMS SECTION */}
+              <div className="p-8 space-y-4">
+                <p className="text-[10px] font-black text-stone-400 uppercase tracking-widest">Items in this order</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {order.items.map((item) => (
+                    <div key={item._id} className="flex items-center gap-4 bg-white p-3 rounded-2xl border border-stone-100">
+                      <div className="w-12 h-12 bg-stone-100 rounded-xl flex items-center justify-center text-[#5A8B05]">
+                        <Package size={20} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-black text-[#6B4226] line-clamp-1">{item.product?.name}</p>
+                        <p className="text-xs font-bold text-stone-400">Qty: {item.quantity}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* FOOTER ACTIONS */}
+              <div className="px-8 py-6 bg-stone-50/50 border-t border-stone-100 flex justify-between items-center">
+                <div className="flex items-center gap-2 text-stone-400 font-bold text-[10px] uppercase">
+                  <AlertCircle size={14} /> Payment via {order.paymentMethod}
+                </div>
+                
+                {order.orderStatus === "placed" && (
+                  <button
+                    onClick={() => handleCancelOrder(order._id)}
+                    disabled={cancelLoading === order._id}
+                    className="group/btn relative px-6 py-2.5 overflow-hidden rounded-xl border-2 border-red-100 text-red-500 text-[11px] font-black uppercase tracking-widest transition-all hover:bg-red-500 hover:text-white hover:border-red-500 disabled:opacity-30"
+                  >
+                    {cancelLoading === order._id ? "Processing..." : "Cancel Order"}
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

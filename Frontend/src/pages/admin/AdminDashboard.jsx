@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { 
@@ -7,8 +8,10 @@ import {
   ChevronRight, Search 
 } from "lucide-react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [recentOrders, setRecentOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -117,7 +120,9 @@ const AdminDashboard = () => {
         <div className="bg-white rounded-[3rem] shadow-sm border border-gray-100 overflow-hidden mb-12">
           <div className="p-8 border-b border-gray-50 flex justify-between items-center bg-gray-50/30">
             <h3 className="font-black text-[#6B4226] text-lg">Recent Transactions</h3>
-            <button className="text-xs font-black text-[#5A8B05] uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
+            <button 
+            onClick={() => navigate("/admin/orders")}
+            className="text-xs font-black text-[#5A8B05] uppercase tracking-widest flex items-center gap-2 hover:gap-3 transition-all">
               View All Orders <ChevronRight size={16} />
             </button>
           </div>

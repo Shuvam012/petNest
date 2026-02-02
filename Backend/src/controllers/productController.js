@@ -120,6 +120,34 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+
+/**
+ * @desc active a product (Admin only)
+ * @route PUT /api/admin/products/:id
+ * @access Private/Admin
+ */
+
+const activeProduct = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        product.isActive = true;    
+        await product.save();
+
+        res.status(200).json({
+            message: "Product active successfully"
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "Something went wrong" + error.message
+        });
+    }
+}
+
 /**
  * @desc Get all products (Admin)
  * @route GET /api/admin/products
@@ -246,5 +274,6 @@ export {
     deleteProduct,
     getAllProducts,
     getProductById,
-    getAllProductsAdmin
+    getAllProductsAdmin,
+    activeProduct
 }

@@ -1,6 +1,6 @@
 
 import express from "express";
-import { createProduct, updateProduct, deleteProduct ,getAllProductsAdmin} from "../controllers/productController.js";
+import { createProduct, updateProduct, deleteProduct ,getAllProductsAdmin,activeProduct} from "../controllers/productController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import { adminOnly } from "../middleware/adminMiddleware.js";
 import upload from "../middleware/uploadMiddleware.js";
@@ -40,6 +40,14 @@ router.delete(
     protect,
     adminOnly,
     deleteProduct
+);
+
+// active product
+router.put(
+    "/products/active/:id",
+    protect,
+    adminOnly,
+    activeProduct
 );
 
 export default router;

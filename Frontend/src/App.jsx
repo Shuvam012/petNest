@@ -16,6 +16,8 @@ import AdminOrders from "./pages/admin/AdminOrders"
 // import AdminSidebar from "./components/admin/AdminSidebar"
 // import AdminProducts from "./pages/admin/AdminProducts"
 
+import About from "./pages/user/About"
+
 //common
 import Navbar from "./components/common/Navbar"
 import Footer from "./components/common/Footer"
@@ -42,7 +44,7 @@ function App() {
           <Route path="/products" element={<Products />} />
 
 
-
+        <Route path="/about" element={<About />} />
 
           {/* user routes */}
 

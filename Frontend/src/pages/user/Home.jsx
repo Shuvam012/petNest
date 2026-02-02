@@ -1,154 +1,182 @@
 
+
+
+
 import React, { useState } from 'react'
-import { Search, ShieldCheck, Truck, Heart, ShoppingBag, Package, MousePointerClick, Star } from 'lucide-react'
+import { Search, ShieldCheck, Truck, Heart, ShoppingBag, Package, MousePointerClick, Star, ArrowRight } from 'lucide-react'
 import heroImg from "../../assets/dog&cat.jpg"
 import { useAuthContext } from "../../context/AuthContext"
 import { useNavigate } from 'react-router-dom'
-// import Register from '../auth/Register'
-
-
-
 
 const Home = () => {
-
   const { user } = useAuthContext()
   const navigate = useNavigate();
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("Searching for:", searchQuery);
+    if (searchQuery.trim()) navigate(`/products?search=${searchQuery}`);
   };
 
+  // 🟢 Matched exactly to your Backend Schema Enum
   const categories = [
-    { name: "Pet Food", icon: "🍖" },
-    { name: "Toys & Accessories", icon: "🎾" },
-    { name: "Grooming Essentials", icon: "✂️" },
-    { name: "Health & Care", icon: "💊" },
-    { name: "Pet Beds", icon: "🛏️" },
+    { name: "Food", slug: "food", icon: "🍖", color: "bg-orange-100" },
+    { name: "Medicine", slug: "medicine", icon: "💊", color: "bg-blue-100" },
+    { name: "Accessories", slug: "accessories", icon: "🎾", color: "bg-yellow-100" },
+    { name: "Clothes", slug: "clothes", icon: "👕", color: "bg-pink-100" },
   ];
 
   return (
-    <div className="bg-[#FAFAF5] min-h-screen font-sans">
-
+    <div className="bg-[#FAFAF5] min-h-screen font-sans selection:bg-[#5A8B05]/30">
+      
       {/* 1. HERO SECTION */}
-      <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
-        <div className="flex-1 space-y-8">
-          <div className="space-y-4">
-            <span className="text-[#5A8B05] font-bold tracking-widest text-sm uppercase">Welcome to PetNest</span>
-            <h1 className="text-5xl md:text-6xl font-extrabold text-[#6B4226] leading-tight">
-              Everything Your Pet Needs,<span className="text-[#5A8B05]"> All in One Nest</span>
-            </h1>
-            <p className="text-gray-600 text-lg max-w-lg">
-              Shop trusted pet products, manage orders easily, and give your pets the care they deserve.
-            </p>
+      <section className="relative overflow-hidden pt-16 pb-20 md:pt-24 md:pb-32">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+          
+          <div className="flex-1 space-y-10 z-10">
+            <div className="space-y-6">
+              {/* <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-gray-100">
+                {/* <span className="flex h-2 w-2 rounded-full bg-[#5A8B05]"></span> */}
+                {/* <span className="text-[#6B4226] font-bold text-xs uppercase tracking-tighter">New Arrivals: Summer Collection</span> */}
+              {/* </div> */} 
+              
+              <h1 className="text-6xl md:text-7xl font-black text-[#6B4226] leading-[1.1] tracking-tight">
+                Premium Care for Your <span className="text-[#5A8B05]">Fur Family.</span>
+              </h1>
+              <p className="text-gray-500 text-xl max-w-lg font-medium leading-relaxed">
+                A handpicked selection of premium essentials delivered right to your nest.
+              </p>
+            </div>
+
+            {/* Modernized Search */}
+            <form onSubmit={handleSearch} className="flex p-2 bg-white rounded-[2rem] shadow-xl shadow-stone-200/50 border border-gray-100 max-w-lg transition-focus-within:ring-4 ring-[#5A8B05]/10">
+              <div className="flex items-center flex-1 px-4">
+                <Search className="text-gray-400 w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="What does your pet need today?"
+                  className="w-full pl-3 pr-2 py-3 bg-transparent outline-none font-medium text-stone-700 placeholder:text-gray-300"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <button className="bg-[#6B4226] hover:bg-[#5A8B05] text-white px-8 py-4 rounded-[1.5rem] font-bold transition-all shadow-lg active:scale-95">
+                Search
+              </button>
+            </form>
+
+            <div className="flex items-center gap-6">
+              <button 
+                onClick={() => navigate('/products')}
+                className="group flex items-center gap-3 bg-[#5A8B05] text-white px-10 py-5 rounded-full font-black shadow-xl shadow-green-900/20 hover:bg-[#4A7204] transition-all">
+                Shop Now <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+              {!user && (
+                <button onClick={() => navigate("/register")} className="text-[#6B4226] font-black hover:underline underline-offset-8 transition-all">
+                  Create Account
+                </button>
+              )}
+            </div>
           </div>
 
-          {/* Search Bar */}
-          <form onSubmit={handleSearch} className="relative max-w-md group">
-            <input
-              type="text"
-              placeholder="Search for food, toys..."
-              className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white shadow-md border border-transparent focus:border-[#5A8B05] outline-none transition-all"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#5A8B05] w-5 h-5" />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#6B4226] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-[#5A8B05]">
-              Search
-            </button>
-          </form>
-
-          <div className="flex gap-4">
-            <button
-              onClick={() => navigate('/products')}
-              className="bg-[#5A8B05] text-white px-8 py-4 rounded-full font-bold shadow-lg hover:bg-[#4A7204] transition-all">Shop Now</button>
-
-            {!user && (
-              <button
-                onClick={() => navigate("/register")}
-
-                className="border-2 border-[#6B4226] text-[#6B4226] px-8 py-4 rounded-full font-bold hover:bg-[#6B4226] hover:text-white transition-all">Sign UP</button>
-            )}
-
+          <div className="flex-1 relative animate-in fade-in zoom-in duration-700">
+            {/* Decorative blobs */}
+            <div className="absolute -top-10 -right-10 w-72 h-72 bg-[#5A8B05]/10 rounded-full blur-[100px]"></div>
+            <div className="absolute -bottom-10 -left-10 w-72 h-72 bg-[#6B4226]/10 rounded-full blur-[100px]"></div>
+            
+            <div className="relative z-10 p-4 bg-white rounded-[3rem] shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
+              <img src={heroImg} alt="Pets" className="rounded-[2.5rem] object-cover w-full h-[550px]" />
+              {/* Floating Stat Card */}
+              <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-3xl shadow-xl flex items-center gap-4 animate-bounce duration-[3000ms]">
+                <div className="bg-yellow-400 p-3 rounded-2xl text-white"><Star fill="currentColor" /></div>
+                <div>
+                  <p className="font-black text-[#6B4226]">4.9/5 Rating</p>
+                  <p className="text-xs text-gray-400 font-bold uppercase">Trusted by 10k+ Parents</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <div className="flex-1 relative">
-          <div className="absolute -top-10 -left-10 w-64 h-64 bg-green-200 rounded-full blur-3xl opacity-50"></div>
-          <img src={heroImg} alt="Happy Pets" className="rounded-2xl shadow-2xl relative z-10 border-8 border-white object-cover w-full h-[500px]" />
         </div>
       </section>
 
-      {/* 2. WHY CHOOSE PETNEST (Trust Section) */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#6B4226] mb-12">Why Pet Parents Choose PetNest</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <TrustCard icon={<Star className="text-[#5A8B05]" />} title="Quality Products" desc="Carefully selected items for pets of all sizes." />
-            <TrustCard icon={<Truck className="text-[#5A8B05]" />} title="Fast & Safe Delivery" desc="Reliable delivery straight to your doorstep." />
-            <TrustCard icon={<ShieldCheck className="text-[#5A8B05]" />} title="Secure Shopping" desc="Safe payments and protected user accounts." />
-            <TrustCard icon={<Heart className="text-[#5A8B05]" />} title="Made for Pet Lovers" desc="Built by people who truly care about pets." />
+      {/* 2. CATEGORIES - Updated with Grid Hover Effects */}
+      <section className="py-24 max-w-7xl mx-auto px-6">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-4xl font-black text-[#6B4226] tracking-tight">Shop by Category</h2>
+            <p className="text-gray-400 font-medium mt-2">Everything your pet needs in one place</p>
           </div>
         </div>
-      </section>
-
-      {/* 3. FEATURED CATEGORIES */}
-      <section className="py-20 max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#6B4226] mb-10">Shop by Category</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+        
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {categories.map((cat, i) => (
-            <div key={i} className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md border border-gray-100 text-center transition-all cursor-pointer group">
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">{cat.icon}</div>
-              <p className="font-bold text-[#6B4226]">{cat.name}</p>
+            <div 
+              key={i} 
+              onClick={() => navigate(`/products?category=${cat.slug}`)}
+              className="group bg-white p-10 rounded-[3rem] shadow-sm hover:shadow-2xl hover:-translate-y-2 border border-gray-50 text-center transition-all duration-500 cursor-pointer relative overflow-hidden"
+            >
+              <div className={`absolute top-0 left-0 w-full h-2 ${cat.color.replace('bg-', 'bg-')}`}></div>
+              <div className={`${cat.color} w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-500`}>
+                <span className="text-5xl">{cat.icon}</span>
+              </div>
+              <p className="font-black text-xl text-[#6B4226]">{cat.name}</p>
+              <p className="text-gray-400 text-xs mt-1 uppercase font-black tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Explore Items</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 4. HOW IT WORKS */}
-      <section className="bg-[#6B4226] text-white py-20">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-16">How PetNest Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-            <WorkStep icon={<MousePointerClick size={40} />} step="1" title="Browse Products" desc="Explore pet essentials easily" />
-            <WorkStep icon={<ShoppingBag size={40} />} step="2" title="Add to Cart" desc="Pick what your pet loves" />
-            <WorkStep icon={<Package size={40} />} step="3" title="Order & Relax" desc="We handle the rest" />
+      {/* 3. TRUST SECTION - Glassmorphism */}
+      <section className="bg-white py-32 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
+          <h2 className="text-4xl font-black text-[#6B4226] mb-16 tracking-tight">The PetNest Promise</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            <TrustCard icon={<Star className="text-yellow-500" />} title="Quality First" desc="Only the most trusted brands." />
+            <TrustCard icon={<Truck className="text-blue-500" />} title="Express Shipping" desc="24-hour delivery on essentials." />
+            <TrustCard icon={<ShieldCheck className="text-green-500" />} title="Verified Safety" desc="100% secure checkout." />
+            <TrustCard icon={<Heart className="text-red-500" />} title="Expert Support" desc="Advice for your pet's health." />
           </div>
         </div>
       </section>
 
-      {/* 5. TRUST / MOTIVATION */}
-      <section className="py-24 text-center px-6">
-        <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#6B4226]">Caring for pets made simple, reliable, and affordable.</h2>
-          <p className="text-gray-600 text-xl italic">"Providing a safe nest for your beloved pets — because they’re family"</p>
-          {/* <button className="bg-[#5A8B05] text-white px-10 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-all">Join Our Community</button> */}
+      {/* 4. HOW IT WORKS - Simplified Visual Flow */}
+      <section className="bg-[#6B4226] py-20">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-black text-white mb-20 tracking-tight">Simple as 1-2-3</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
+            <WorkStep icon={<MousePointerClick size={32} />} step="1" title="Select Gear" desc="Browse our curated catalog" />
+            <WorkStep icon={<ShoppingBag size={32} />} step="2" title="Fast Checkout" desc="Safe and secure payments" />
+            <WorkStep icon={<Package size={32} />} step="3" title="Joy Delivered" desc="Straight to your pet's bowl" />
+          </div>
         </div>
       </section>
     </div>
   )
 }
 
-// Sub-components for cleaner code
 const TrustCard = ({ icon, title, desc }) => (
-  <div className="p-6 rounded-2xl bg-[#FAFAF5] space-y-3 text-left border border-transparent hover:border-[#5A8B05] transition-all">
-    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">{icon}</div>
-    <h3 className="font-bold text-[#6B4226] text-lg">{title}</h3>
-    <p className="text-gray-600 text-sm">{desc}</p>
+  <div className="group p-8 rounded-[2.5rem] bg-[#FAFAF5] space-y-4 text-center border border-transparent hover:bg-white hover:shadow-xl transition-all duration-300">
+    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto shadow-sm group-hover:rotate-12 transition-transform">{icon}</div>
+    <h3 className="font-black text-[#6B4226] text-xl">{title}</h3>
+    <p className="text-gray-500 text-sm font-medium leading-relaxed">{desc}</p>
   </div>
 )
 
 const WorkStep = ({ icon, step, title, desc }) => (
-  <div className="flex flex-col items-center space-y-4">
+  <div className="flex flex-col items-center space-y-6 group">
     <div className="relative">
-      <div className="w-20 h-20 bg-[#5A8B05] rounded-full flex items-center justify-center mb-4">{icon}</div>
-      <span className="absolute -top-2 -right-2 bg-white text-[#6B4226] w-8 h-8 rounded-full flex items-center justify-center font-bold">{step}</span>
+      <div className="w-24 h-24 bg-[#5A8B05] text-white rounded-[2rem] flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-500 shadow-xl shadow-black/20">
+        {icon}
+      </div>
+      <span className="absolute -bottom-4 -right-4 bg-white text-[#6B4226] w-10 h-10 rounded-full flex items-center justify-center font-black shadow-lg">
+        {step}
+      </span>
     </div>
-    <h3 className="text-xl font-bold">{title}</h3>
-    <p className="text-gray-300">{desc}</p>
+    <div>
+      <h3 className="text-2xl font-black text-white mb-2">{title}</h3>
+      <p className="text-stone-300 font-medium max-w-[200px]">{desc}</p>
+    </div>
   </div>
 )
 
-export default Home
+export default Home;
