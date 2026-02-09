@@ -37,78 +37,78 @@ const signup = async (req, res) => {
 
 //signin controller
 
-// const loginUser = async (req, res) => {
-//     const { email, password } = req.body;
-
-//     try {
-//         const existingUser = await User.findOne({ email });
-//         if (!existingUser)
-//             return res.status(404).json({ message: "User not found" });
-
-//         const isPasswordCorrect = await bcrypt.compare(
-//             password,
-//             existingUser.password
-//         );
-
-//         if (!isPasswordCorrect)
-//             return res.status(400).json({ message: "Invalid credentials" });
-
-//         const token = jwt.sign(
-//             { id: existingUser._id, role: existingUser.role },
-//             process.env.JWT_SECRET,
-//             { expiresIn: "7d" }
-//         );
-
-//         //  SET COOKIE
-//         res.cookie("token", token, {
-//             httpOnly: true,
-         
-//             secure: true,
-//             sameSite: "none",
-//             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-//             path: "/",
-//         });
-
-//         res.json({
-//             message: "Login successful",
-//             role: existingUser.role,
-//         });
-//     } catch (error) {
-//         res.status(500).json({ message: error.message });
-//     }
-// };
-
-
 const loginUser = async (req, res) => {
-    // ... (keep your existing findUser and password check logic)
+    const { email, password } = req.body;
 
-    const token = jwt.sign(
-        { id: existingUser._id, role: existingUser.role },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-    );
+    try {
+        const existingUser = await User.findOne({ email });
+        if (!existingUser)
+            return res.status(404).json({ message: "User not found" });
 
-    // Keep the cookie for PC, but the token in JSON is for mobile/headers
-    res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-        path: "/",
-    });
+        const isPasswordCorrect = await bcrypt.compare(
+            password,
+            existingUser.password
+        );
 
-    // ✅ MUST SEND TOKEN HERE
-    res.json({
-        message: "Login successful",
-        token, // 👈 Add this
-        role: existingUser.role,
-        user: {
-            id: existingUser._id,
-            username: existingUser.username,
-            role: existingUser.role
-        }
-    });
+        if (!isPasswordCorrect)
+            return res.status(400).json({ message: "Invalid credentials" });
+
+        const token = jwt.sign(
+            { id: existingUser._id, role: existingUser.role },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        //  SET COOKIE
+        res.cookie("token", token, {
+            httpOnly: true,
+         
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+            path: "/",
+        });
+
+        res.json({
+            message: "Login successful",
+            role: existingUser.role,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };
+
+
+// const loginUser = async (req, res) => {
+//     // ... (keep your existing findUser and password check logic)
+
+//     const token = jwt.sign(
+//         { id: existingUser._id, role: existingUser.role },
+//         process.env.JWT_SECRET,
+//         { expiresIn: "7d" }
+//     );
+
+//     // Keep the cookie for PC, but the token in JSON is for mobile/headers
+//     res.cookie("token", token, {
+//         httpOnly: true,
+//         secure: true,
+//         sameSite: "none",
+//         maxAge: 7 * 24 * 60 * 60 * 1000,
+//         path: "/",
+//     });
+
+//     // ✅ MUST SEND TOKEN HERE
+//     res.json({
+//         message: "Login successful",
+//         token, // 👈 Add this
+//         role: existingUser.role,
+//         user: {
+//             id: existingUser._id,
+//             username: existingUser.username,
+//             role: existingUser.role
+//         }
+//     });
+// };
 
 // logout controller 
 
