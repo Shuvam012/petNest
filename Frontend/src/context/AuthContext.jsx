@@ -124,6 +124,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await api.post("/api/auth/logout"); // ✅ FIXED
+      localStorage.removeItem("token");
       setUser(null);
       toast.success("Logged out successfully");
     } catch (error) {
