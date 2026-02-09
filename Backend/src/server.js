@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       process.env.FRONTEND_URL,
-      // process.env.PRODUCT_FRONTEND_URL
+      process.env.PRODUCT_FRONTEND_URL
       
 
 
@@ -36,6 +36,8 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
   })
 )
+
+app.options('*', cors() )
 
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
