@@ -26,7 +26,7 @@ app.use(
   cors({
     origin: [
       process.env.FRONTEND_URL,
-      process.env.PRODUCT_FRONTEND_URL
+      // process.env.PRODUCT_FRONTEND_URL
       
 
 
