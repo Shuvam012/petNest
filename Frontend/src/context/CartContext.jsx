@@ -12,7 +12,8 @@ export const CartProvider = ({ children }) => {
 
     // axios config (cookies enabled)
     axios.defaults.withCredentials = true;
-    axios.defaults.baseURL = "http://localhost:5000";
+    // axios.defaults.baseURL = "http://localhost:5000";
+    axios.defaults.baseURL = import.meta.env.VITE_DEV_BASE_URL;
 
     // ✅ Fetch cart when user logs in
     const fetchCart = async () => {
