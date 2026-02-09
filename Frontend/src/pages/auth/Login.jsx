@@ -34,11 +34,14 @@ const Login = () => {
 
     try {
       await login(formData);
-      toast.success("Welcome back!");
+      toast.success("Welcome back!" ,{
+        duration: 2000
+      });
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Invalid email or password");
-      toast.error("Login Failed");
+      toast.error("Login Failed",{
+        duration: 2000});
     } finally {
       setLoading(false);
     }

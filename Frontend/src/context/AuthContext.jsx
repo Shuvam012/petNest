@@ -112,10 +112,14 @@ export const AuthProvider = ({ children }) => {
     try {
       await api.post("/api/auth/login", formData); // ✅ FIXED
       await checkAuth();
-      toast.success("Login successful 🐾");
+      toast.success("Login successful 🐾",{
+        duration: 2000
+      });
       return true;
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Login failed");
+      toast.error(error?.response?.data?.message || "Login failed",{
+        duration: 2000
+      });
       throw error;
     }
   };
@@ -136,7 +140,9 @@ const logout = async () => {
   try {
     await api.post("/api/auth/logout", {}, { withCredentials: true });
     setUser(null);
-    toast.success("Logged out successfully");
+    toast.success("Logged out successfully",{
+      duration: 2000
+    });
   } catch (error) {
     toast.error("Logout failed");
   }

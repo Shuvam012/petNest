@@ -33,7 +33,9 @@ const Register = () => {
 
     try {
       await api.post("api/auth/signup", formData);
-      toast.success("Welcome to the family! 🎉");
+      toast.success("Welcome to the family! 🎉",{
+        duration: 2000
+      });
 
       await login({
         email: formData.email,
@@ -44,7 +46,8 @@ const Register = () => {
     } catch (err) {
       const msg = err.response?.data?.message || "Registration failed. Try again.";
       setError(msg);
-      toast.error(msg);
+      toast.error(msg,{
+        duration: 2000});
     } finally {
       setLoading(false);
     }
