@@ -33,24 +33,46 @@ const Products = () => {
     const petTypes = ["All Pets", "dog", "cat"];
     const categories = ["All Categories", "food", "medicine", "accessories", "clothes"];
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                setLoading(true);
-                // const res = await fetch("http://localhost:5000/api/products");
-                // const res = await fetch("process.env.VITE_DEV_BASE_URL/api/products");
-                const res = await api.get("/api/products");
-                if (!res.ok) throw new Error("Failed to fetch products");
-                const data = await res.json();
-                setProducts(Array.isArray(data.products) ? data.products : []);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchProducts();
-    }, []);
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //         try {
+    //             setLoading(true);
+    //             // const res = await fetch("http://localhost:5000/api/products");
+    //             // const res = await fetch("process.env.VITE_DEV_BASE_URL/api/products");
+    //             const res = await api.get("/api/products");
+    //             if (!res.ok) throw new Error("Failed to fetch products");
+    //             const data = await res.json();
+    //             setProducts(Array.isArray(data.products) ? data.products : []);
+    //         } catch (err) {
+    //             setError(err.message);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //     fetchProducts();
+    // }, []);
+
+useEffect(() => {
+    const fetchProducts = async () => {
+        try {
+            setLoading(true);
+            // Axios directly returns the response object
+            const res = await api.get("/api/products");
+            
+            // In Axios, 'res.data' contains the body sent by your backend
+            // Your backend sends { products: [...] }
+            const data = res.data; 
+
+            setProducts(Array.isArray(data.products) ? data.products : []);
+        } catch (err) {
+            // Axios errors are handled here if status is not 2xx
+            setError(err.response?.data?.message || err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchProducts();
+}, []);
 
     const filteredProducts = products.filter((p) => {
         return (
