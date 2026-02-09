@@ -25,7 +25,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-       "https://fancy-fans-admire.loca.lt",
+      //  "https://fancy-fans-admire.loca.lt",
       process.env.FRONTEND_URL,
       process.env.PRODUCT_FRONTEND_URL
       
