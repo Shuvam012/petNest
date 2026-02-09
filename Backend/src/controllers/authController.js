@@ -112,10 +112,23 @@ const loginUser = async (req, res) => {
 
 // logout controller 
 
+// const logoutUser = (req, res) => {
+//     res.clearCookie("token")
+//     res.json({ message: "Logout successful" });
+// };
+
+
 const logoutUser = (req, res) => {
-    res.clearCookie("token")
-    res.json({ message: "Logout successful" });
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+  });
+
+  res.status(200).json({ message: "Logout successful" });
 };
+
 
 
 const getMe = (req, res) => {

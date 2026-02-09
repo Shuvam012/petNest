@@ -121,16 +121,27 @@ export const AuthProvider = ({ children }) => {
   };
 
   // logout
-  const logout = async () => {
-    try {
-      await api.post("/api/auth/logout"); // ✅ FIXED
-      localStorage.removeItem("token");
-      setUser(null);
-      toast.success("Logged out successfully");
-    } catch (error) {
-      toast.error("Logout failed");
-    }
-  };
+//   const logout = async () => {
+//     try {
+//       await api.post("/api/auth/logout"); // ✅ FIXED
+//       localStorage.removeItem("token");
+//       setUser(null);
+//       toast.success("Logged out successfully");
+//     } catch (error) {
+//       toast.error("Logout failed");
+//     }
+//   };
+
+const logout = async () => {
+  try {
+    await api.post("/api/auth/logout", {}, { withCredentials: true });
+    setUser(null);
+    toast.success("Logged out successfully");
+  } catch (error) {
+    toast.error("Logout failed");
+  }
+};
+
 
   return (
     <AuthContext.Provider
