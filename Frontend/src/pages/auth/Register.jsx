@@ -32,7 +32,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      await api.post("/auth/signup", formData);
+      await api.post("api/auth/signup", formData);
       toast.success("Welcome to the family! 🎉");
 
       await login({

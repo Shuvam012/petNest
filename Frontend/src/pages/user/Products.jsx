@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 import { useCartContext } from "../../context/CartContext";
+import api from "../../api/axios";
 
 const Products = () => {
     const navigate = useNavigate();
@@ -37,7 +38,8 @@ const Products = () => {
             try {
                 setLoading(true);
                 // const res = await fetch("http://localhost:5000/api/products");
-                const res = await fetch("process.env.VITE_DEV_BASE_URL/api/products");
+                // const res = await fetch("process.env.VITE_DEV_BASE_URL/api/products");
+                const res = await api.get("/api/products");
                 if (!res.ok) throw new Error("Failed to fetch products");
                 const data = await res.json();
                 setProducts(Array.isArray(data.products) ? data.products : []);
