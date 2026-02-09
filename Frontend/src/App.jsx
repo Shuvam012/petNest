@@ -1,6 +1,6 @@
-import {  Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
 import ProtectedRoute from "./routes/ProtectedRoute"
-import {Toaster} from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 
 //pages
 import Login from "./pages/auth/Login"
@@ -30,51 +30,62 @@ function App() {
 
 
   return (
-   <>
+    <>
       <Navbar />
-      <Toaster position="top-right" reverseOrder= {false}/>
-        <Routes>
+      {/* <Toaster position="top-right" reverseOrder= {false}/> */}
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          duration: 3000, // 👈 3 seconds
+          style: {
+            fontSize: "14px",
+          },
+        }}
+      />
 
-          {/* public routes */}
-          
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+      <Routes>
 
-          <Route path="/products" element={<Products />} />
+        {/* public routes */}
+
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        <Route path="/products" element={<Products />} />
 
 
         <Route path="/about" element={<About />} />
 
-          {/* user routes */}
+        {/* user routes */}
 
-          <Route element={<ProtectedRoute />}>
-            
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/checkout" element={<Checkout/>}/>
-          </Route>
+        <Route element={<ProtectedRoute />}>
 
-
-          {/* admin routes */}
-
-          <Route element={<ProtectedRoute adminOnly />}>
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/products" element={<AdminProducts />} />
-             {/* <Route path = '/admin/adminOrder' element={<AdminOrders  />} /> */}
-             <Route path="/admin/orders" element={<AdminOrders />} />
-             <Route path="/admin/products" element={<AdminProducts />} />
-             
-          </Route>
-         
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Route>
 
 
-        </Routes>
+        {/* admin routes */}
+
+        <Route element={<ProtectedRoute adminOnly />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
+          {/* <Route path = '/admin/adminOrder' element={<AdminOrders  />} /> */}
+          <Route path="/admin/orders" element={<AdminOrders />} />
+          <Route path="/admin/products" element={<AdminProducts />} />
+
+        </Route>
+
+
+
+      </Routes>
       <Footer />
 
 
 
-   </>
+    </>
   )
 }
 
