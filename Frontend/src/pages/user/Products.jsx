@@ -36,7 +36,8 @@ const Products = () => {
         const fetchProducts = async () => {
             try {
                 setLoading(true);
-                const res = await fetch("http://localhost:5000/api/products");
+                // const res = await fetch("http://localhost:5000/api/products");
+                const res = await fetch("process.env.VITE_DEV_BASE_URL/api/products");
                 if (!res.ok) throw new Error("Failed to fetch products");
                 const data = await res.json();
                 setProducts(Array.isArray(data.products) ? data.products : []);
